@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+
+<%- include('partials/head.html'); %>
+
+<body>
+
+    <%- include('partials/nav.html'); %>
+
+    <div class="container container-fill">
+        <div class="row">
+            <%- include('partials/board.html'); %>
+            <%- include('partials/chat.html'); %>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/game.js"></script>
+</body>
+</html>

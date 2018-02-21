@@ -1,0 +1,58 @@
+/* General Style */
+
+.container-fill {
+    width: 100%;
+}
+
+#chat-col {
+    padding-left: 0;
+    padding-right: 7px;
+}
+
+#main-col {
+    padding-right: 1%;
+}
+
+/* Gameboard Style */
+#game-board {
+  background-color: #337ab7;
+}
+
+/*Chat Style*/
+
+#chat-area {
+  padding: 1px;
+}
+
+#messages {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    height: 300px;
+    max-height: 300px;
+}
+
+#messages li {
+    padding: 5px 10px;
+    padding-left: 1px;
+    word-wrap: break-word;
+    text-indent: 1px;
+    margin-left: 1px;
+}
+
+#messages li img {
+    margin-top: -10px;
+    height: 50%;
+    width: auto;
+}
+
+#messages li.server {
+    font-style: italic;
+    padding-right: 10px;
+}
+
+.dem-feels-emote {
+    height: 30px !important;
+    width: 30px !important;
+}
