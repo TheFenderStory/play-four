@@ -11,16 +11,26 @@ socket.on('chat message', (by, msg) => {
 	autoScroll();
 });
 
-socket.on('drop piece', (col, row, side) => {
-	console.log(col, row, side);
-	gameboard.addPiece(col, row, side);
+socket.on('server message', (message) => {
+    $('#messages').append('<li class="server">' + message + '</li>');
+    autoScroll();
 });
 
-socket.on('load chat', function(array) {
-	for (let i = 0; i < array.length; i++) {
-		$('#messages').append('<li><strong>' + array[i][0] + ':</strong><span class="inline-message"> ' + array[i][1] + '</span></li>');
+socket.on('load room', function(chat, board) {
+	for (let i = 0; i < chat.length; i++) {
+		if (!chat[i][0]) {
+			$('#messages').append('<li class="server">' + chat[i][1] + '</li>');
+		} else {
+			$('#messages').append('<li><strong>' + chat[i][0] + ':</strong><span class="inline-message"> ' + chat[i][1] + '</span></li>');
+		}
 	}
 	autoScroll();
+
+	for (var y = 0; y < board.length; y++) {
+		for (var x = 0; x < board[y].length; x++) {
+			gameboard.addPiece(y, x, board[y][x]);
+		}
+	}
 });
 
 /* Event Handlers */
@@ -37,4 +47,12 @@ $('#chat').submit(function() {
 	$('#m').val('');
 	autoScroll();
 	return false;
+});
+
+// Warn before leaving
+window.addEventListener("beforeunload", function (e) {
+	var confirmationMessage = 'Are you sure you want to exit? You will forfeit the match.';
+
+	(e || window.event).returnValue = confirmationMessage; //Gecko + IE
+	return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
 });

@@ -1,3 +1,9 @@
+/* Game Socket Events */
+socket.on('drop piece', (col, row, side) => {
+	console.log(col, row, side);
+	gameboard.addPiece(col, row, side);
+});
+
 var gameboard = {
 	game: document.getElementById("game-board"),
 	start: function() {

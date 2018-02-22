@@ -10,19 +10,18 @@ const shortid = require('shortid');
 
 module.exports = function (io) {
 	io.on("connection", socket => {
-		socket.shortid = shortid.generate();
-		socket.name = "Player " + socket.shortid;
+		socket.name = "Player " + shortid.generate();
 
 		socket.on('load', room => {
 			socket.join(room);
 			socket.room = room;
 
 			if (!rooms.get(room).player1) {
-				rooms.get(room).player1 = socket.shortid;
+				rooms.get(room).player1 = socket.id;
 			} else if (!rooms.get(room).player2) {
-				rooms.get(room).player2 = socket.shortid;
+				rooms.get(room).player2 = socket.id;
 			}
-
+			socket.emit('load room', rooms.get(room).getChat(), rooms.get(room).getGameBoard());
 			io.sockets.in(room).emit('server message', socket.name + ' has joined.');
 			rooms.get(room).addMessage(null, socket.name + ' has joined.');
 		});
@@ -38,10 +37,10 @@ module.exports = function (io) {
 			let room = rooms.get(socket.room);
 			let side;
 
-			if (socket.shortid === room.getPlayer1()) {
+			if (socket.id === room.getPlayer1()) {
 				side = "r";
 				if (room.turn !== side) return;
-			} else if (socket.shortid === room.getPlayer2()) {
+			} else if (socket.id === room.getPlayer2()) {
 				side = "b";
 				if (room.turn !== side) return;
 			} else {
