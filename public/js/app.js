@@ -16,6 +16,10 @@ socket.on('server message', (message) => {
     autoScroll();
 });
 
+socket.on('name change', (message) => {
+
+});
+
 socket.on('load room', function(chat, board) {
 	for (let i = 0; i < chat.length; i++) {
 		if (!chat[i][0]) {
@@ -46,6 +50,12 @@ $('#chat').submit(function() {
 	socket.emit('chat message', $('#m').val());
 	$('#m').val('');
 	autoScroll();
+	return false;
+});
+
+$('#name-btn').click(function() {
+	socket.emit('choose name', $('#name-input').val());
+	$('#m').val('');
 	return false;
 });
 
